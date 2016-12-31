@@ -1,0 +1,23 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+if [ ! -d "0" ]; then
+    cp -rp 0.org 0
+    blockMesh 2>&1 | tee log.blockMesh
+fi
+
+if [ ! -d "processor0" ]; then
+    decomposePar -copyUniform -cellDist 2>&1 | tee log.decompose
+fi
+
+mpirun -np 4 porousFoam -parallel 2>&1 | tee log.run
+
+diff 0/C0 0.org/C0 > /dev/null 2>&1 
+if [ $? == 0 ]; then
+    reconstructPar -withZero 2>&1 | tee log.reconstruct
+else
+    reconstructPar -newTimes 2>&1 | tee log.reconstruct
+fi
+
+
+# ----------------------------------------------------------------- end-of-file

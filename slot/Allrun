@@ -1,0 +1,13 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+if [ ! -d "0" ]; then
+    cp -rp 0.org 0
+    blockMesh 2>&1 | tee log.blockMesh
+    setFields | tee log.setFields
+fi
+
+porousFoam 2>&1 | tee log.run
+
+
+# ----------------------------------------------------------------- end-of-file

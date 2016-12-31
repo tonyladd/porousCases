@@ -1,0 +1,33 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     3.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      porousFoamDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Numbers of fields
+nF                      2;      // Number of minerals (FList, dFList)
+nC                      2;      // Number of concentrations (CList)
+nR                      2;      // Number of reactions (RList, dRList)
+
+// Solver flags
+QCON                    true;   // Constant flow rate
+DARCY                   true;   // Darcy flow
+DEBUG                   false;  // Include debugging info
+
+// Solver parameters
+Pmin                    0.1;    // Min porosity (> 0)
+Kmax                    1e6;    // Max permeability
+Qmax                    1e6;    // Max volumetric flow rate
+
+// ************************************************************************* //
